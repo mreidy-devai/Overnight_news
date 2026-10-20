@@ -1,0 +1,21 @@
+# Replace these examples with real RSS/Atom feeds you are permitted to access.
+# Disabled example URLs prevent an accidental run against placeholder sources.
+lookback_hours = 24
+max_stories = 8
+
+[[feeds]]
+name = "Example source (replace me)"
+url = "https://example.com/feed.xml"
+enabled = false
+
+[model]
+# Choose a model installed locally with Ollama. Keep this blank until you install one.
+name = ""
+base_url = "http://127.0.0.1:11434"
+timeout_seconds = 90
+max_input_chars = 6000
+
+[email]
+title = "Your Morning News Digest"
+# SMTP connection settings and addresses are read from environment variables.
+# See README.md; never put passwords in this file.
