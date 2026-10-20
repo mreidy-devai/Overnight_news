@@ -1,0 +1,62 @@
+# Sloth News Digest config. Edit freely; relative paths are resolved from this file's folder.
+
+[settings]
+# Any model you have pulled in Ollama works: `ollama pull qwen2.5:7b`
+# Smaller (faster, lighter): "llama3.2:3b". Bigger (better judgement): any 8B-14B model.
+model = "qwen2.5:7b"
+ollama_url = "http://localhost:11434"
+
+hours_back = 24          # only stories newer than this
+max_items_per_feed = 25  # newest N per feed
+top_n = 8                # stories in "Worth your coffee"
+radar_n = 10             # headline-only stories below the bar
+min_score = 5            # 0-10; stories at or above this make the top list
+batch_size = 12          # stories scored per model call
+timeout_seconds = 300    # first call can be slow while the model loads
+keep_days = 14           # remember seen stories this long so days don't repeat (at least 7 is kept for the weekly look-back)
+output_dir = "digests"
+
+# Near-duplicate stories: titles at least this similar (0-1) count as the same story, within a day and across days.
+# Lower catches more rewordings but risks merging different stories. 0 = exact titles only.
+dup_threshold = 0.6
+
+# Read the full article for the top N stories and summarize it, instead of trusting the feed's short summary.
+# Paywalled or script-heavy pages are skipped and keep the feed summary. 0 = feed summaries only.
+fulltext_top_n = 5
+allow_private_links = false  # keep false: article links come from feeds, so private/local addresses are refused
+
+# Once a week, list stories from the past 7 days that scored closest to your bar but missed the top list.
+weekly_day = "Mon"       # "Mon".."Sun", or "" to turn off
+weekly_n = 5
+weekly_min_score = 3     # ignore anything the model scored below this
+
+# What you care about, in plain words. The model reads these. The keyword fallback matches them as whole words.
+interests = [
+  "open-source AI",
+  "open-weight models",
+  "local-first software",
+  "small business",
+  "cybersecurity",
+  "science",
+]
+avoid = ["celebrity", "horoscope", "sponsored"]
+
+[[feeds]]
+name = "Hacker News"
+url = "https://hnrss.org/frontpage"
+
+[[feeds]]
+name = "Ars Technica"
+url = "https://feeds.arstechnica.com/arstechnica/index"
+
+[[feeds]]
+name = "BBC News"
+url = "https://feeds.bbci.co.uk/news/rss.xml"
+
+[[feeds]]
+name = "NPR News"
+url = "https://feeds.npr.org/1001/rss.xml"
+
+[[feeds]]
+name = "The Verge"
+url = "https://www.theverge.com/rss/index.xml"
